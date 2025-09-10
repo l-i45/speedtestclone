@@ -1,0 +1,4 @@
+User-agent: ia_archiver
+Disallow: /global-index/
+Disallow: /performance/
+Disallow: /legacy-awards/
