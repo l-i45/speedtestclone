@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Simulate a fake test result after 2 seconds
     setTimeout(() => {
-      const download = (50 + Math.random() * 50).toFixed(2); // 50–100 Mbps
-      const upload = (10 + Math.random() * 20).toFixed(2);   // 10–30 Mbps
+      const download = (50 + Math.random() * 150).toFixed(2); // 50–200 Mbps
+      const upload = (25 + Math.random() * 25).toFixed(2);    // 25–50 Mbps
       result.innerHTML = `
         <strong>Download:</strong> ${download} Mbps <br>
         <strong>Upload:</strong> ${upload} Mbps
