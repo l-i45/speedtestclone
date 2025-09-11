@@ -1,3 +1,4 @@
+
 // app.js - starter script for Speedtest Clone
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,3 +13,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 2000);
     });
 });
+
