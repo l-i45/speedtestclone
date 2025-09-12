@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speedtest Clone</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Speedtest Clone</title>
+  <!-- Google font similar to Speedtest.net -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="favicon.ico" />
 </head>
 <body class="standard-layout language-en">
+  <main class="page">
+    <div class="card">
+      <header class="card-header">
+        <div class="brand">Speedtest Clone</div>
+      </header>
 
-    <header>Speedtest Clone</header>
-    <div class="container">
-        <button id="startTest">Start Test</button>
-        <p id="result"></p>
+      <section class="card-body">
+        <div class="controls">
+          <button id="startTest" class="start-btn">Start Test</button>
+        </div>
+
+        <div id="result" class="result">
+          <!-- three stat boxes will be inserted here by JS -->
+        </div>
+
+        <div id="progress" class="progress" aria-hidden="true"></div>
+      </section>
+
+      <footer class="card-footer">
+        <small>Demo · For learning purposes only</small>
+      </footer>
     </div>
+  </main>
 
-    <script src="javascript/app.js"></script>
+  <script src="javascript/app.js"></script>
 </body>
 </html>
