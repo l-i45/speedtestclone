@@ -1,21 +1,26 @@
-// app.js - Speedtest-like simulation with gauge + animated numbers
+// app.js — dark-style simulation with GO + gauge animation
 
 document.addEventListener("DOMContentLoaded", () => {
-  const MAX_DOWNLOAD = 200; // for gauge normalization
-
-  const button = document.getElementById("startTest");
+  const MAX_DOWNLOAD = 200;
+  const button = document.getElementById("startTest") || document.getElementById("startTest"); // keep safe
+  const goBtn = document.getElementById("startTest") ? null : document.getElementById("startTest");
+  const startControl = document.getElementById("startTest") || document.getElementById("startTest");
+  // we used id="startTest" earlier; but the new HTML uses id="startTest" is not present — the new uses id="startTest" or go-btn?
+  // To be consistent with new HTML, use id "startTest" not "go-btn". We'll select by the GO button class as fallback:
+  const goButton = document.getElementById("startTest") || document.querySelector(".go-btn");
   const result = document.getElementById("result");
   const progress = document.getElementById("progress");
-  const gaugeFg = document.querySelector(".gauge-fg");
+  const gaugeFg = document.querySelector(".g-fg");
   const gaugeNumber = document.getElementById("gaugeNumber");
 
-  // helper: animate a number into an element
   function animateNumber(el, from, to, duration = 1200, decimals = 0, onTick) {
     const start = performance.now();
     const diff = to - from;
     function tick(now) {
       const t = Math.min(1, (now - start) / duration);
-      const val = from + diff * t;
+      // smooth ease (smoothstep-like)
+      const eased = t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
+      const val = from + diff * eased;
       el.textContent = Number(val).toFixed(decimals);
       if (onTick) onTick(val);
       if (t < 1) requestAnimationFrame(tick);
@@ -23,73 +28,87 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(tick);
   }
 
-  // gauge helpers
   function setGaugePercent(pct) {
-    // circle r = 90 (circumference ≈ 565.48)
-    const circumference = 2 * Math.PI * 90;
+    const r = 96;
+    const circumference = 2 * Math.PI * r;
     const offset = circumference * (1 - Math.max(0, Math.min(1, pct)));
-    gaugeFg.style.strokeDasharray = `${circumference}`;
-    gaugeFg.style.strokeDashoffset = `${offset}`;
+    const circle = document.querySelector(".g-fg");
+    if (circle) {
+      circle.style.strokeDasharray = `${circumference}`;
+      circle.style.strokeDashoffset = `${offset}`;
+    }
   }
 
-  button.addEventListener("click", () => {
-    // reset UI
+  function startTest() {
+    // prepare UI boxes
     result.innerHTML = `
-      <div class="stat-box ping"><div class="label">Ping</div><div class="value"><span class="num" id="pingVal">--</span><span class="unit"> ms</span></div></div>
-      <div class="stat-box download"><div class="label">Download</div><div class="value"><span class="num" id="downloadVal">--</span><span class="unit"> Mbps</span></div></div>
-      <div class="stat-box upload"><div class="label">Upload</div><div class="value"><span class="num" id="uploadVal">--</span><span class="unit"> Mbps</span></div></div>
+      <div class="stat-box ping">
+        <div class="label">Ping</div>
+        <div class="value"><span class="num" id="pingVal">--</span><span class="unit"> ms</span></div>
+      </div>
+      <div class="stat-box download">
+        <div class="label">Download</div>
+        <div class="value"><span class="num" id="downloadVal">--</span><span class="unit"> Mbps</span></div>
+      </div>
+      <div class="stat-box upload">
+        <div class="label">Upload</div>
+        <div class="value"><span class="num" id="uploadVal">--</span><span class="unit"> Mbps</span></div>
+      </div>
     `;
-    progress.style.opacity = "1";
-    // fake running
-    button.disabled = true;
-    button.textContent = "Testing...";
 
-    // animate ping
+    // update UI state
+    const btn = document.querySelector(".go-btn");
+    if (btn) { btn.disabled = true; btn.textContent = "…"; }
+    progress.style.opacity = "1";
+    progress.style.background = `linear-gradient(90deg, rgba(0,209,255,0.25), rgba(0,120,204,0.05))`;
+    setGaugePercent(0);
+    if (gaugeNumber) gaugeNumber.textContent = "--";
+
+    // ping (fast)
     const pingEl = document.getElementById("pingVal");
-    const pingVal = Math.floor(5 + Math.random() * 45); // 5-50 ms
+    const pingVal = Math.floor(5 + Math.random() * 45);
     animateNumber(pingEl, 0, pingVal, 600, 0);
 
-    // small progressive visual (progress gradient) - simple increments
+    // mini progress
     let pct = 0;
     const barInterval = setInterval(() => {
-      pct = Math.min(90, pct + (4 + Math.random() * 8));
-      progress.style.background = `linear-gradient(90deg, rgba(0,169,255,0.95) ${pct}%, rgba(0,169,255,0.05) ${pct}%)`;
+      pct = Math.min(90, pct + (4 + Math.random() * 9));
+      progress.style.background = `linear-gradient(90deg, rgba(0,209,255,0.95) ${pct}%, rgba(0,209,255,0.05) ${pct}%)`;
     }, 220);
 
-    // download after short delay
+    // download (main)
     setTimeout(() => {
-      const downloadTarget = +(50 + Math.random() * 150).toFixed(2); // 50-200
+      const downloadTarget = +(50 + Math.random() * 150).toFixed(2);
       const downloadEl = document.getElementById("downloadVal");
-
-      // animate numeric value and update gauge center simultaneously
-      animateNumber(downloadEl, 0, downloadTarget, 1400, 2, (val) => {
-        gaugeNumber.textContent = Number(val).toFixed(0);
-        // set gauge pct proportionally
+      animateNumber(downloadEl, 0, downloadTarget, 1500, 2, (val) => {
+        if (gaugeNumber) gaugeNumber.textContent = Math.round(val);
         setGaugePercent(Number(val) / MAX_DOWNLOAD);
       });
-      // bump progress visually further
       pct = Math.min(96, pct + 8);
-      progress.style.background = `linear-gradient(90deg, rgba(0,169,255,0.95) ${pct}%, rgba(0,169,255,0.05) ${pct}%)`;
+      progress.style.background = `linear-gradient(90deg, rgba(0,209,255,0.95) ${pct}%, rgba(0,209,255,0.05) ${pct}%)`;
     }, 900);
 
-    // upload after download finishes
+    // upload
     setTimeout(() => {
-      const uploadTarget = +(25 + Math.random() * 25).toFixed(2); // 25-50
+      const uploadTarget = +(25 + Math.random() * 25).toFixed(2);
       const uploadEl = document.getElementById("uploadVal");
       animateNumber(uploadEl, 0, uploadTarget, 1100, 2);
 
-      // finish progress and cleanup after a short wait
       clearInterval(barInterval);
-      progress.style.background = `linear-gradient(90deg, rgba(0,169,255,0.95) 100%, rgba(0,169,255,0.05) 100%)`;
+      progress.style.background = `linear-gradient(90deg, rgba(0,209,255,0.95) 100%, rgba(0,209,255,0.05) 100%)`;
       setTimeout(() => {
         progress.style.opacity = "0";
-        progress.style.background = `linear-gradient(90deg, rgba(0,169,255,0.25), rgba(0,169,255,0.05))`;
-        button.disabled = false;
-        button.textContent = "Start Test";
-      }, 600);
-    }, 2600);
-  });
+        progress.style.background = `linear-gradient(90deg, rgba(0,209,255,0.25), rgba(0,209,255,0.05))`;
+        const btn2 = document.querySelector(".go-btn");
+        if (btn2) { btn2.disabled = false; btn2.textContent = "GO"; }
+      }, 700);
+    }, 2800);
+  }
 
-  // ensure gauge initial state
+  // wire GO button
+  const go = document.querySelector(".go-btn");
+  if (go) go.addEventListener("click", startTest);
+
+  // init
   setGaugePercent(0);
 });
