@@ -1,184 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Speedtest</title>
-
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-  <!-- Extra meta / comments to keep file long and clear -->
-  <!-- This file is intentionally expanded (lots of line breaks and semantic blocks)
-       so it reads like a full production-style HTML file for editing and learning. -->
+  <link rel="icon" href="favicon.ico">
 </head>
-
-<body class="page-body">
+<body class="dark-body">
 
   <!-- ======================================================
-       HEADER (logo left, nav right)
+       HEADER
        ====================================================== -->
-  <header class="site-header">
-
-    <div class="header-inner">
-
-      <!-- Left side: logo + brand -->
-      <div class="header-left">
-        <div class="logo-wrap">
-          <!-- Logo image (replace images/logo.png if you have your own) -->
-          <img src="images/logo.png" alt="Speedtest logo" class="site-logo">
-        </div>
-
-        <div class="brand-title">
-          <h1>Speedtest</h1>
-        </div>
-      </div>
-
-      <!-- Right side: small navigation links -->
-      <div class="header-right">
-        <nav class="top-nav" aria-label="Top Navigation">
-          <a href="#" class="nav-link">English ▾</a>
-          <a href="#" class="nav-link">Apps</a>
-          <a href="#" class="nav-link">Learn</a>
-          <a href="#" class="nav-link">Data</a>
-          <a href="#" class="nav-link">About</a>
-        </nav>
-
-        <div class="account-actions">
-          <button class="signin-btn">Sign in</button>
-        </div>
-      </div>
-
+  <header class="header">
+    <div class="header-left">
+      <img src="images/logo.png" alt="Speedtest Logo" class="header-logo">
+      <span class="header-title">Speedtest</span>
     </div>
-
+    <nav class="header-nav">
+      <a href="#">English ▾</a>
+      <a href="#">Apps</a>
+      <a href="#">Learn</a>
+      <a href="#">Data</a>
+      <a href="#">About</a>
+    </nav>
+    <div class="header-right">
+      <button class="signin-btn">Sign in</button>
+    </div>
   </header>
-  <!-- ================= END HEADER ========================= -->
-
 
   <!-- ======================================================
-       PARTNERS / PROVIDER INFO (images above text)
+       PARTNERS SECTION
        ====================================================== -->
-  <section class="partners-section">
-
-    <div class="partners-inner">
-
-      <!-- Safaricom Business block -->
-      <div class="partner-block">
-        <div class="partner-logo">
-          <img src="images/safaricom.png" alt="Safaricom Logo" class="partner-img">
-        </div>
-        <div class="partner-name">Safaricom Business</div>
-      </div>
-
-      <!-- Spacer -->
-      <div class="partners-sep" aria-hidden="true"></div>
-
-      <!-- Liquid Intelligent Technologies block -->
-      <div class="partner-block">
-        <div class="partner-logo">
-          <img src="images/liquid.png" alt="Liquid Logo" class="partner-img">
-        </div>
-        <div class="partner-name">Liquid Intelligent Technologies — Nairobi</div>
-      </div>
-
+  <section class="partners">
+    <div class="partner">
+      <img src="images/safaricom-logo.png" alt="Safaricom Logo" class="partner-logo">
+      <p class="partner-name">Safaricom Business</p>
     </div>
 
+    <div class="partner">
+      <img src="images/liquid-logo.png" alt="Liquid Logo" class="partner-logo">
+      <p class="partner-name">Liquid Intelligent Technologies Nairobi</p>
+    </div>
   </section>
-  <!-- ================= END PARTNERS ========================= -->
-
 
   <!-- ======================================================
-       MAIN: Speed test area
-       - Centered GO button
-       - Plain text stats below (Ping, Download, Upload)
-       - Order: Ping, Download, Upload (no boxes)
+       MAIN CONTENT
        ====================================================== -->
-  <main class="main-content">
+  <main class="main">
+    <div class="go-wrap">
+      <button id="startTest" class="go-btn">GO</button>
+    </div>
 
-    <div class="main-inner">
-
-      <!-- Instruction / small caption row -->
-      <div class="caption-row">
-        <p class="caption-text">Click <strong>GO</strong> to run a simulated test.</p>
+    <div class="stats">
+      <div class="stat-row">
+        <span class="stat-label">Ping</span>
+        <span id="pingValue" class="stat-value">— ms</span>
       </div>
-
-      <!-- big centered button -->
-      <div class="go-row">
-        <button id="startTest" class="go-button" aria-label="Start speed test">GO</button>
+      <div class="stat-row">
+        <span class="stat-label">Download</span>
+        <span id="downloadValue" class="stat-value">— Mbps</span>
       </div>
-
-      <!-- results: plain rows, not boxed -->
-      <div class="plain-results" role="status" aria-live="polite">
-
-        <!-- Ping -->
-        <div class="stat-row">
-          <div class="stat-label">Ping</div>
-          <div class="stat-value" id="pingValue">— ms</div>
-        </div>
-
-        <!-- Download -->
-        <div class="stat-row">
-          <div class="stat-label">Download</div>
-          <div class="stat-value" id="downloadValue">— Mbps</div>
-        </div>
-
-        <!-- Upload -->
-        <div class="stat-row">
-          <div class="stat-label">Upload</div>
-          <div class="stat-value" id="uploadValue">— Mbps</div>
-        </div>
-
+      <div class="stat-row">
+        <span class="stat-label">Upload</span>
+        <span id="uploadValue" class="stat-value">— Mbps</span>
       </div>
+    </div>
 
-      <!-- timestamp (below results) -->
-      <div class="timestamp-row">
-        <div id="timestamp">—</div>
-      </div>
-
-    </div><!-- /.main-inner -->
-
+    <div id="timestamp" class="timestamp">—</div>
   </main>
-  <!-- ================= END MAIN ========================= -->
-
 
   <!-- ======================================================
        FOOTER
        ====================================================== -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-left">
-        <small>© <span id="year">2025</span> Speedtest</small>
-      </div>
-      <div class="footer-right">
-        <a href="#" class="footer-link">Settings</a>
-        <a href="#" class="footer-link">History</a>
-        <a href="#" class="footer-link">Help</a>
-      </div>
-    </div>
+  <footer class="footer">
+    <small>© <span id="year">2025</span> Speedtest</small>
+    <nav class="footer-nav">
+      <a href="#">Settings</a>
+      <a href="#">History</a>
+      <a href="#">Help</a>
+    </nav>
   </footer>
-  <!-- ================= END FOOTER ========================= -->
 
-
-  <!-- ======================================================
-       Load app JS
-       ====================================================== -->
   <script src="javascript/app.js"></script>
-
-  <!-- small helper script -->
   <script>
-    // set year for footer
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
-
-  <!-- lots of blank lines and comments intentionally below to increase file length
-       (keeps file long, easy to edit later) -->
-
-
-
-
-  <!-- end of file -->
 </body>
 </html>
