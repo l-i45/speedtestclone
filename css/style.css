@@ -1,103 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* =======================================================
+   style.css - Extended Styling for Speedtest Clone
+   ======================================================= */
 
-  <title>Speedtest Clone</title>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0c10;
+  color: #fff;
+  text-align: center;
+}
 
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+/* ================= HEADER ================= */
+header {
+  background: #141414;
+  padding: 1rem;
+}
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css">
-</head>
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-<body>
+.top-bar .logo img {
+  height: 40px;
+}
 
-  <!-- ================= HEADER ================= -->
-  <header>
-    <div class="top-bar">
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
 
-      <div class="logo">
-        <img src="images/logo.png" alt="Speedtest Logo">
-      </div>
+.main-nav li {
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+}
 
-      <nav class="main-nav">
-        <ul>
-          <li>Apps</li>
-          <li>Learn</li>
-          <li>Data</li>
-          <li>About</li>
-        </ul>
-      </nav>
+/* ================= PARTNERS ================= */
+.partners {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin: 20px 0;
+}
 
-    </div>
-  </header>
-  <!-- =============== END HEADER =============== -->
+.partner {
+  text-align: center;
+}
 
+.partner img {
+  height: 40px;
+  margin-bottom: 5px;
+}
 
-  <!-- ================= PARTNERS ================= -->
-  <section class="partners">
+/* ================= MAIN ================= */
+.container {
+  margin-top: 40px;
+}
 
-    <div class="partner">
-      <img src="images/safaricom.png" alt="Safaricom Logo">
-      <p>Safaricom Business</p>
-    </div>
+.circle-button {
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-    <div class="partner">
-      <img src="images/liquid.png" alt="Liquid Logo">
-      <p>Liquid Intelligent Technologies Nairobi</p>
-    </div>
+.circle-button:hover {
+  background: #2980b9;
+}
 
-  </section>
-  <!-- =============== END PARTNERS =============== -->
+/* ================= RESULTS ================= */
+.results-panel {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
 
+.result-box {
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 20px 40px;
+  min-width: 150px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
 
-  <!-- ================= MAIN CONTAINER ================= -->
-  <main class="container">
+.result-box strong {
+  display: block;
+  font-size: 1.2rem;
+  color: #3498db;
+  margin-bottom: 10px;
+}
 
-    <!-- Speedtest Panel -->
-    <div class="speedtest-panel">
+.result-box span {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+}
 
-      <!-- GO Button -->
-      <button id="startTest" class="circle-button">
-        GO
-      </button>
+/* ================= FOOTER ================= */
+footer {
+  background: #141414;
+  padding: 20px;
+  margin-top: 50px;
+}
 
-    </div>
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
 
-    <!-- Results -->
-    <div id="result" class="results-panel">
-      <!-- Results will appear here dynamically -->
-    </div>
+.footer-links li {
+  cursor: pointer;
+  color: #aaa;
+  font-size: 0.9rem;
+}
 
-  </main>
-  <!-- =============== END MAIN CONTAINER =============== -->
-
-
-  <!-- ================= FOOTER ================= -->
-  <footer>
-
-    <div class="footer-links">
-      <ul>
-        <li>Privacy Policy</li>
-        <li>Terms of Use</li>
-        <li>Advertise</li>
-        <li>Careers</li>
-      </ul>
-    </div>
-
-    <div class="footer-copy">
-      <p>&copy; 2025 Speedtest Clone Project</p>
-    </div>
-
-  </footer>
-  <!-- =============== END FOOTER =============== -->
-
-
-  <!-- Scripts -->
-  <script src="javascript/app.js"></script>
-
-</body>
-</html>
+.footer-copy {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: #666;
+}
