@@ -1,45 +1,51 @@
-// =======================================================
-// app.js - Speedtest Clone Interactivity
-// =======================================================
+// app.js - Simulated Speed Test (plain stats, no boxes)
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Elements
+  const startBtn = document.getElementById("startTest");
+  const pingEl = document.getElementById("pingValue");
+  const downloadEl = document.getElementById("downloadValue");
+  const uploadEl = document.getElementById("uploadValue");
+  const tsEl = document.getElementById("timestamp");
 
-  const button = document.getElementById("startTest");
-  const result = document.getElementById("result");
+  // Helper to format numbers
+  function formatNumber(n, decimals = 2) {
+    return Number(n).toFixed(decimals);
+  }
 
-  // ================== Event Listener ==================
-  button.addEventListener("click", () => {
+  // Click handler
+  startBtn.addEventListener("click", () => {
 
-    // Show "running" message
-    result.innerHTML = "<p>Running speed test...</p>";
+    // Show immediate running state
+    pingEl.textContent = "… ms";
+    downloadEl.textContent = "… Mbps";
+    uploadEl.textContent = "… Mbps";
+    tsEl.textContent = "Running test…";
 
-    // Fake speed test after delay
+    // Simulate a short staged run for better UX (optional)
     setTimeout(() => {
+      // Ping first
+      const ping = 5 + Math.random() * 10;          // 5 - 15 ms
+      pingEl.textContent = formatNumber(ping, 2) + " ms";
 
-      const ping = (5 + Math.random() * 10).toFixed(2);       // 5–15 ms
-      const download = (50 + Math.random() * 150).toFixed(2); // 50–200 Mbps
-      const upload = (25 + Math.random() * 25).toFixed(2);    // 25–50 Mbps
+      // Next stage: download
+      setTimeout(() => {
+        const download = 50 + Math.random() * 150; // 50 - 200 Mbps
+        downloadEl.textContent = formatNumber(download, 2) + " Mbps";
 
-      // Inject results
-      result.innerHTML = `
-        <div class="result-box">
-          <strong>Ping</strong>
-          <span>${ping} ms</span>
-        </div>
+        // Next stage: upload
+        setTimeout(() => {
+          const upload = 25 + Math.random() * 25; // 25 - 50 Mbps
+          uploadEl.textContent = formatNumber(upload, 2) + " Mbps";
 
-        <div class="result-box">
-          <strong>Download</strong>
-          <span>${download} Mbps</span>
-        </div>
+          // final timestamp
+          const now = new Date();
+          tsEl.textContent = now.toLocaleString();
+        }, 700);
 
-        <div class="result-box">
-          <strong>Upload</strong>
-          <span>${upload} Mbps</span>
-        </div>
-      `;
+      }, 700);
 
-    }, 2000);
+    }, 500);
 
   });
-
 });
