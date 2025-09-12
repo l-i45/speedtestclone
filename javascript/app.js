@@ -1,25 +1,34 @@
-// app.js — dark-style simulation with GO + gauge animation
+// app.js — simulation for the refined layout
 
 document.addEventListener("DOMContentLoaded", () => {
-  const MAX_DOWNLOAD = 200;
-  const button = document.getElementById("startTest") || document.getElementById("startTest"); // keep safe
-  const goBtn = document.getElementById("startTest") ? null : document.getElementById("startTest");
-  const startControl = document.getElementById("startTest") || document.getElementById("startTest");
-  // we used id="startTest" earlier; but the new HTML uses id="startTest" is not present — the new uses id="startTest" or go-btn?
-  // To be consistent with new HTML, use id "startTest" not "go-btn". We'll select by the GO button class as fallback:
-  const goButton = document.getElementById("startTest") || document.querySelector(".go-btn");
-  const result = document.getElementById("result");
-  const progress = document.getElementById("progress");
-  const gaugeFg = document.querySelector(".g-fg");
+  const MAX_DOWNLOAD = 200; // gauge reference
+  const goButton = document.getElementById("startTest");
+  const downloadNumberEl = document.getElementById("downloadNumber");
+  const uploadNumberEl = document.getElementById("uploadNumber");
+  const pingEl = document.getElementById("pingVal");
   const gaugeNumber = document.getElementById("gaugeNumber");
+  const gaugeFg = document.querySelector(".g-fg");
+  const publishedTime = document.getElementById("publishedTime");
+  const gaugeLabel = document.getElementById("gaugeLabel");
 
+  // set date/time now in the top-meta (format similar to Speedtest)
+  function setNow() {
+    const d = new Date();
+    const opts = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const date = d.toLocaleDateString(undefined, opts);
+    const time = d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+    publishedTime.textContent = `${date} ${time}`;
+  }
+  setNow();
+
+  // helper to animate numbers
   function animateNumber(el, from, to, duration = 1200, decimals = 0, onTick) {
     const start = performance.now();
     const diff = to - from;
     function tick(now) {
       const t = Math.min(1, (now - start) / duration);
-      // smooth ease (smoothstep-like)
-      const eased = t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
+      // ease-out
+      const eased = (--t) * t * t + 1;
       const val = from + diff * eased;
       el.textContent = Number(val).toFixed(decimals);
       if (onTick) onTick(val);
@@ -32,83 +41,51 @@ document.addEventListener("DOMContentLoaded", () => {
     const r = 96;
     const circumference = 2 * Math.PI * r;
     const offset = circumference * (1 - Math.max(0, Math.min(1, pct)));
-    const circle = document.querySelector(".g-fg");
-    if (circle) {
-      circle.style.strokeDasharray = `${circumference}`;
-      circle.style.strokeDashoffset = `${offset}`;
+    if (gaugeFg) {
+      gaugeFg.style.strokeDasharray = `${circumference}`;
+      gaugeFg.style.strokeDashoffset = `${offset}`;
     }
   }
 
   function startTest() {
-    // prepare UI boxes
-    result.innerHTML = `
-      <div class="stat-box ping">
-        <div class="label">Ping</div>
-        <div class="value"><span class="num" id="pingVal">--</span><span class="unit"> ms</span></div>
-      </div>
-      <div class="stat-box download">
-        <div class="label">Download</div>
-        <div class="value"><span class="num" id="downloadVal">--</span><span class="unit"> Mbps</span></div>
-      </div>
-      <div class="stat-box upload">
-        <div class="label">Upload</div>
-        <div class="value"><span class="num" id="uploadVal">--</span><span class="unit"> Mbps</span></div>
-      </div>
-    `;
-
-    // update UI state
-    const btn = document.querySelector(".go-btn");
-    if (btn) { btn.disabled = true; btn.textContent = "…"; }
-    progress.style.opacity = "1";
-    progress.style.background = `linear-gradient(90deg, rgba(0,209,255,0.25), rgba(0,120,204,0.05))`;
+    // UI changes
+    if (goButton) { goButton.disabled = true; goButton.textContent = '...'; }
     setGaugePercent(0);
-    if (gaugeNumber) gaugeNumber.textContent = "--";
+    gaugeNumber.textContent = '--';
+    downloadNumberEl.textContent = '--';
+    uploadNumberEl.textContent = '--';
+    pingEl.textContent = '--';
 
-    // ping (fast)
-    const pingEl = document.getElementById("pingVal");
-    const pingVal = Math.floor(5 + Math.random() * 45);
-    animateNumber(pingEl, 0, pingVal, 600, 0);
+    // simulate ping quickly
+    const pingVal = Math.floor(6 + Math.random() * 45);
+    animateNumber(pingEl, 0, pingVal, 700, 0);
 
-    // mini progress
-    let pct = 0;
-    const barInterval = setInterval(() => {
-      pct = Math.min(90, pct + (4 + Math.random() * 9));
-      progress.style.background = `linear-gradient(90deg, rgba(0,209,255,0.95) ${pct}%, rgba(0,209,255,0.05) ${pct}%)`;
-    }, 220);
-
-    // download (main)
+    // animate download after a short delay
     setTimeout(() => {
-      const downloadTarget = +(50 + Math.random() * 150).toFixed(2);
-      const downloadEl = document.getElementById("downloadVal");
-      animateNumber(downloadEl, 0, downloadTarget, 1500, 2, (val) => {
+      const dlTarget = +(50 + Math.random() * 140).toFixed(2); // 50-190
+      animateNumber(downloadNumberEl, 0, dlTarget, 1600, 2, (val) => {
         if (gaugeNumber) gaugeNumber.textContent = Math.round(val);
         setGaugePercent(Number(val) / MAX_DOWNLOAD);
       });
-      pct = Math.min(96, pct + 8);
-      progress.style.background = `linear-gradient(90deg, rgba(0,209,255,0.95) ${pct}%, rgba(0,209,255,0.05) ${pct}%)`;
-    }, 900);
+    }, 700);
 
-    // upload
+    // animate upload a little later
     setTimeout(() => {
-      const uploadTarget = +(25 + Math.random() * 25).toFixed(2);
-      const uploadEl = document.getElementById("uploadVal");
-      animateNumber(uploadEl, 0, uploadTarget, 1100, 2);
+      const upTarget = +(20 + Math.random() * 50).toFixed(2); // 20-70
+      animateNumber(uploadNumberEl, 0, upTarget, 1200, 2);
+    }, 2200);
 
-      clearInterval(barInterval);
-      progress.style.background = `linear-gradient(90deg, rgba(0,209,255,0.95) 100%, rgba(0,209,255,0.05) 100%)`;
-      setTimeout(() => {
-        progress.style.opacity = "0";
-        progress.style.background = `linear-gradient(90deg, rgba(0,209,255,0.25), rgba(0,209,255,0.05))`;
-        const btn2 = document.querySelector(".go-btn");
-        if (btn2) { btn2.disabled = false; btn2.textContent = "GO"; }
-      }, 700);
-    }, 2800);
+    // re-enable button after everything
+    setTimeout(() => {
+      if (goButton) { goButton.disabled = false; goButton.textContent = 'GO'; }
+      // update top timestamp to now (simulate result time)
+      setNow();
+    }, 3600);
   }
 
-  // wire GO button
-  const go = document.querySelector(".go-btn");
-  if (go) go.addEventListener("click", startTest);
+  // wire GO
+  if (goButton) goButton.addEventListener("click", startTest);
 
-  // init
+  // initial state
   setGaugePercent(0);
 });
