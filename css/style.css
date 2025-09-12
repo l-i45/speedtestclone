@@ -1,137 +1,226 @@
-/* =======================================================
-   style.css - Extended Styling for Speedtest Clone
-   ======================================================= */
+/* ========================================================
+   css/style.css
+   Extended, readable, light theme (not black)
+   Plain stat rows (Ping / Download / Upload) — NO BOXES
+   ======================================================== */
 
-body {
+/* Reset & global */
+* {
+  box-sizing: border-box;
+}
+
+body.page-body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b0c10;
-  color: #fff;
-  text-align: center;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #f4f6f8; /* light, not black */
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ================= HEADER ================= */
-header {
-  background: #141414;
-  padding: 1rem;
+/* ---------------- HEADER ---------------- */
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e6e9ec;
+  padding: 12px 20px;
 }
 
-.top-bar {
+.header-inner {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-logo {
+  height: 38px;
+  width: auto;
+  display: block;
+}
+
+.brand-title h1 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #0b66c3; /* brand-ish blue */
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-nav .nav-link {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 0.95rem;
+  margin-left: 12px;
+}
+
+.top-nav .nav-link:hover {
+  color: #111827;
+}
+
+.signin-btn {
+  background: transparent;
+  border: 1px solid #d1d5db;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #111827;
+}
+
+/* ---------------- PARTNERS ---------------- */
+.partners-section {
+  background: transparent;
+  padding: 18px 0;
+}
+
+.partners-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 60px;
   align-items: center;
 }
 
-.top-bar .logo img {
-  height: 40px;
-}
-
-.main-nav ul {
-  list-style: none;
+.partner-block {
   display: flex;
-  gap: 2rem;
-  margin: 0;
-  padding: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
-.main-nav li {
-  cursor: pointer;
-  font-weight: bold;
-  color: #fff;
-}
-
-/* ================= PARTNERS ================= */
-.partners {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  margin: 20px 0;
-}
-
-.partner {
-  text-align: center;
-}
-
-.partner img {
-  height: 40px;
-  margin-bottom: 5px;
-}
-
-/* ================= MAIN ================= */
-.container {
-  margin-top: 40px;
-}
-
-.circle-button {
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  font-size: 2rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.circle-button:hover {
-  background: #2980b9;
-}
-
-/* ================= RESULTS ================= */
-.results-panel {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-}
-
-.result-box {
-  background: #1e1e1e;
-  border-radius: 10px;
-  padding: 20px 40px;
-  min-width: 150px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.6);
-}
-
-.result-box strong {
+.partner-img {
+  height: 48px;
+  width: auto;
   display: block;
-  font-size: 1.2rem;
-  color: #3498db;
-  margin-bottom: 10px;
 }
 
-.result-box span {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #fff;
+/* partner name (clear, image above text) */
+.partner-name {
+  font-size: 0.95rem;
+  color: #374151;
 }
 
-/* ================= FOOTER ================= */
-footer {
-  background: #141414;
-  padding: 20px;
-  margin-top: 50px;
+/* ---------------- MAIN AREA ---------------- */
+.main-content {
+  max-width: 900px;
+  margin: 28px auto;
+  padding: 0 18px;
 }
 
-.footer-links ul {
-  list-style: none;
+.main-inner {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* caption text */
+.caption-text {
   margin: 0;
-  padding: 0;
+  color: #4b5563;
+  font-size: 0.95rem;
 }
 
-.footer-links li {
+/* GO button (large circular) */
+.go-row {
+  margin-top: 12px;
+}
+
+.go-button {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(180deg,#0b66c3,#0a57a8);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
   cursor: pointer;
-  color: #aaa;
-  font-size: 0.9rem;
+  box-shadow: 0 6px 18px rgba(11,102,195,0.18);
 }
 
-.footer-copy {
-  margin-top: 10px;
-  font-size: 0.8rem;
-  color: #666;
+.go-button:hover {
+  transform: translateY(-2px);
+  transition: transform .12s ease;
+}
+
+/* ---------------- PLAIN RESULTS (NO BOXES) ---------------- */
+.plain-results {
+  width: 100%;
+  max-width: 520px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Each stat row is simple text, left label and right value */
+.stat-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 12px;
+  border-radius: 6px;
+  /* no background and no box so it's plain */
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* timestamp */
+.timestamp-row {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+/* ---------------- FOOTER ---------------- */
+.site-footer {
+  margin-top: 36px;
+  background: #ffffff;
+  border-top: 1px solid #e6e9ec;
+  padding: 14px 0;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.footer-link {
+  color: #6b7280;
+  text-decoration: none;
+  margin-left: 12px;
+}
+
+/* Responsive small screens */
+@media (max-width: 640px) {
+  .partners-inner { gap: 18px; flex-direction: column; }
+  .stat-row { font-size: 0.95rem; }
+  .go-button { width: 140px; height: 140px; font-size: 1.6rem; }
 }
