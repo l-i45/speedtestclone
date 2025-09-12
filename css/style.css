@@ -1,103 +1,103 @@
-/* style.css — Speedtest-like dark layout (demo) */
-:root{
-  --bg:#0f1724;
-  --accent-1:#00d1ff;
-  --accent-2:#0077cc;
-  --upload:#27ae60;
-  --ping:#f39c12;
-  --muted:#93a7b5;
-  --text:#e6f0f6;
-  --card-radius:14px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:"Montserrat",Arial,sans-serif;
-  background:linear-gradient(180deg,var(--bg), #07101a 140%);
-  color:var(--text);
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  padding:28px 12px;
-}
+  <title>Speedtest Clone</title>
 
-/* header */
-.site-header{
-  width:100%;
-  max-width:980px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:12px;
-}
-.header-left{display:flex;align-items:center;gap:12px}
-.logo{font-weight:700;font-size:1.05rem}
-.demo-badge{background:#ffcc00;border-radius:8px;color:#111;padding:6px 10px;font-size:0.78rem;font-weight:700}
-.header-right{display:flex;gap:12px;align-items:center}
-.small-link{color:var(--muted); text-decoration:none; font-size:0.95rem}
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-/* card */
-.page{width:100%; display:flex; justify-content:center;}
-.card{
-  width:min(980px, 96%);
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius:var(--card-radius);
-  box-shadow:0 18px 48px rgba(2,8,18,0.6);
-  overflow:hidden;
-}
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
 
-/* top meta row */
-.top-meta{display:flex;justify-content:space-between;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.02)}
-.left-meta{color:var(--muted);font-size:0.9rem}
-.right-meta{display:flex;gap:12px;align-items:center}
-.meta-link{color:var(--muted);text-decoration:none;font-size:0.85rem;border-radius:6px;padding:6px 8px}
+<body>
 
-/* main area */
-.main-area{display:flex;gap:18px;padding:32px;align-items:center;justify-content:center;flex-wrap:wrap}
-.stat.big{flex: 0 0 220px; text-align:center; min-width:180px}
-.stat .label{color:var(--muted);font-size:0.85rem;margin-bottom:6px}
-.big-number{font-family:"Oswald","Montserrat",sans-serif;font-size:2.6rem;font-weight:600;color:var(--text)}
-.unit{font-size:0.95rem;color:var(--muted);margin-top:6px}
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="top-bar">
 
-/* center column */
-.center-col{display:flex;flex-direction:column;align-items:center;gap:12px;width:340px}
-.gauge-wrap{position:relative;width:240px;height:240px}
-.gauge{display:block}
-.g-bg{stroke: rgba(255,255,255,0.04); stroke-width:20}
-.g-fg{stroke-dasharray: 603.19; stroke-dashoffset: 603.19; transition: stroke-dashoffset 900ms cubic-bezier(.22,.9,.32,1)}
-.gauge-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
-.gauge-number{font-family:"Oswald",sans-serif;font-size:1.6rem;color:var(--text)}
-.gauge-sub{font-size:0.95rem;color:var(--muted);margin-top:6px}
+      <div class="logo">
+        <img src="images/logo.png" alt="Speedtest Logo">
+      </div>
 
-/* GO button */
-.go-btn{
-  width:110px;height:110px;border-radius:50%;border:3px solid rgba(0,209,255,0.14);
-  display:flex;align-items:center;justify-content:center;background:transparent;color:var(--text);
-  font-family:"Oswald",sans-serif;font-size:1.2rem;font-weight:700;cursor:pointer;box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-.go-btn:disabled{opacity:0.6;cursor:default}
+      <nav class="main-nav">
+        <ul>
+          <li>Apps</li>
+          <li>Learn</li>
+          <li>Data</li>
+          <li>About</li>
+        </ul>
+      </nav>
 
-/* ping inline */
-.ping-inline{color:var(--muted);font-size:0.95rem;margin-top:8px}
-.ping-inline #pingVal{color:var(--ping);font-weight:700;margin-left:6px}
+    </div>
+  </header>
+  <!-- =============== END HEADER =============== -->
 
-/* provider row */
-.provider-row{display:flex;gap:26px;margin-top:12px;justify-content:space-between;width:100%}
-.provider{display:flex;gap:10px;align-items:center;color:var(--muted)}
-.provider .provider-name{color:var(--text);font-weight:600}
-.provider-sub{font-size:0.85rem;color:var(--muted)}
 
-/* adjust color emphasis for upload */
-.upload-col .big-number{color:var(--upload)}
+  <!-- ================= PARTNERS ================= -->
+  <section class="partners">
 
-/* footer */
-.card-footer{padding:14px 24px;border-top:1px solid rgba(255,255,255,0.02);text-align:center;color:var(--muted);font-size:0.85rem}
+    <div class="partner">
+      <img src="images/safaricom.png" alt="Safaricom Logo">
+      <p>Safaricom Business</p>
+    </div>
 
-/* responsiveness */
-@media (max-width:840px){
-  .main-area{padding:18px;flex-direction:column;align-items:center}
-  .center-col{width:100%}
-  .stat.big{width:100%;max-width:420px}
-}
+    <div class="partner">
+      <img src="images/liquid.png" alt="Liquid Logo">
+      <p>Liquid Intelligent Technologies Nairobi</p>
+    </div>
+
+  </section>
+  <!-- =============== END PARTNERS =============== -->
+
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="container">
+
+    <!-- Speedtest Panel -->
+    <div class="speedtest-panel">
+
+      <!-- GO Button -->
+      <button id="startTest" class="circle-button">
+        GO
+      </button>
+
+    </div>
+
+    <!-- Results -->
+    <div id="result" class="results-panel">
+      <!-- Results will appear here dynamically -->
+    </div>
+
+  </main>
+  <!-- =============== END MAIN CONTAINER =============== -->
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+
+    <div class="footer-links">
+      <ul>
+        <li>Privacy Policy</li>
+        <li>Terms of Use</li>
+        <li>Advertise</li>
+        <li>Careers</li>
+      </ul>
+    </div>
+
+    <div class="footer-copy">
+      <p>&copy; 2025 Speedtest Clone Project</p>
+    </div>
+
+  </footer>
+  <!-- =============== END FOOTER =============== -->
+
+
+  <!-- Scripts -->
+  <script src="javascript/app.js"></script>
+
+</body>
+</html>
