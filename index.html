@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Speedtest Clone</title>
-  <!-- Google font similar to Speedtest.net -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="favicon.ico">
 </head>
-<body class="standard-layout language-en">
+<body>
   <main class="page">
     <div class="card">
       <header class="card-header">
@@ -17,12 +16,34 @@
       </header>
 
       <section class="card-body">
+        <div class="gauge-row">
+          <div class="gauge-wrap" aria-hidden="true">
+            <!-- SVG circular gauge -->
+            <svg class="gauge" viewBox="0 0 220 220" width="220" height="220" aria-hidden="true">
+              <defs>
+                <linearGradient id="gradDownload" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#00a9ff" />
+                  <stop offset="100%" stop-color="#0077cc" />
+                </linearGradient>
+              </defs>
+              <g transform="translate(110,110)">
+                <circle class="gauge-bg" r="90" cx="0" cy="0" fill="none" stroke-width="18"></circle>
+                <circle class="gauge-fg" r="90" cx="0" cy="0" fill="none" stroke-width="18" stroke="url(#gradDownload)" stroke-linecap="round" transform="rotate(-90)"></circle>
+              </g>
+            </svg>
+            <div class="gauge-center">
+              <div class="gauge-value"><span id="gaugeNumber">--</span><span class="unit"> Mbps</span></div>
+              <div class="gauge-label">Download</div>
+            </div>
+          </div>
+        </div>
+
         <div class="controls">
           <button id="startTest" class="start-btn">Start Test</button>
         </div>
 
-        <div id="result" class="result">
-          <!-- three stat boxes will be inserted here by JS -->
+        <div id="result" class="result" aria-live="polite">
+          <!-- stat boxes inserted by JS -->
         </div>
 
         <div id="progress" class="progress" aria-hidden="true"></div>
