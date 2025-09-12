@@ -3,21 +3,48 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Speedtest Clone</title>
-  <!-- fonts -->
+  <title>Speedtest Clone — Demo</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="favicon.ico">
 </head>
 <body>
+  <header class="site-header">
+    <div class="header-left">
+      <div class="logo">Speedtest Clone</div>
+      <div class="demo-badge">DEMO — Not affiliated with Speedtest</div>
+    </div>
+    <nav class="header-right">
+      <a href="#" class="small-link">English ▾</a>
+      <a href="#" class="small-link">Apps</a>
+      <a href="#" class="small-link">Learn</a>
+      <a href="#" class="small-link">Data</a>
+      <a href="#" class="small-link">About</a>
+    </nav>
+  </header>
+
   <main class="page">
     <div class="card">
-      <header class="card-header">
-        <div class="brand">Speedtest Clone</div>
-      </header>
 
-      <section class="card-body">
-        <div class="top-row">
+      <div class="top-meta">
+        <div class="left-meta">
+          <span id="publishedTime">—</span>
+        </div>
+        <div class="right-meta">
+          <a href="#" class="meta-link">RESULTS</a>
+          <a href="#" class="meta-link">SETTINGS</a>
+        </div>
+      </div>
+
+      <section class="main-area">
+        <div class="stat big download-col">
+          <div class="label">DOWNLOAD</div>
+          <div class="big-number" id="downloadNumber">--</div>
+          <div class="unit">Mbps</div>
+        </div>
+
+        <div class="center-col">
           <div class="gauge-wrap">
             <svg class="gauge" viewBox="0 0 240 240" width="240" height="240" aria-hidden="true">
               <defs>
@@ -33,21 +60,42 @@
             </svg>
 
             <div class="gauge-center">
-              <div class="gauge-number"><span id="gaugeNumber">--</span><span class="unit"> Mbps</span></div>
-              <div class="gauge-sub">Download</div>
+              <div class="gauge-number"><span id="gaugeNumber">--</span><span class="unit-small"> Mbps</span></div>
+              <div class="gauge-sub" id="gaugeLabel">Download</div>
             </div>
           </div>
 
-          <div class="controls">
-            <button id="startTest" class="go-btn">GO</button>
-            <div id="progress" class="progress" aria-hidden="true"></div>
+          <button id="startTest" class="go-btn">GO</button>
+
+          <!-- ping inline (not a separate box) -->
+          <div class="ping-inline">Ping <span id="pingVal">--</span> ms</div>
+
+          <!-- provider row (left/right) -->
+          <div class="provider-row">
+            <div class="provider left">
+              <!-- user icon -->
+              <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="8" r="3" fill="#fff" opacity="0.9"/><path d="M3 21c0-3.3 2.7-6 9-6s9 2.7 9 6" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/></svg>
+              <div>
+                <div class="provider-name">Safaricom Business</div>
+              </div>
+            </div>
+
+            <div class="provider right">
+              <!-- globe icon -->
+              <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#fff" stroke-width="1.2" opacity="0.9"/><path d="M2 12h20M12 2c2.5 3.5 2.5 16 0 20M6 6c4 2 8 2 12 0" stroke="#fff" stroke-width="1" fill="none" opacity="0.9"/></svg>
+              <div>
+                <div class="provider-name">Liquid Intelligent Technologies</div>
+                <div class="provider-sub">Nairobi</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div id="result" class="result" aria-live="polite">
-          <!-- ping / download / upload boxes injected by JS -->
+        <div class="stat big upload-col">
+          <div class="label">UPLOAD</div>
+          <div class="big-number" id="uploadNumber">--</div>
+          <div class="unit">Mbps</div>
         </div>
-
       </section>
 
       <footer class="card-footer">
