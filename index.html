@@ -3,76 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Speedtest</title>
+
+  <title>Speedtest Clone</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <!-- Header -->
+
+  <!-- ================= HEADER ================= -->
   <header>
-    <div class="header-left">
-      <h1>Speedtest</h1>
-    </div>
-    <div class="header-right">
-      <nav>
+    <div class="top-bar">
+
+      <div class="logo">
+        <img src="images/logo.png" alt="Speedtest Logo">
+      </div>
+
+      <nav class="main-nav">
         <ul>
-          <li><a href="#">Apps</a></li>
-          <li><a href="#">Learn</a></li>
-          <li><a href="#">Data</a></li>
-          <li><a href="#">About</a></li>
+          <li>Apps</li>
+          <li>Learn</li>
+          <li>Data</li>
+          <li>About</li>
         </ul>
       </nav>
+
     </div>
   </header>
+  <!-- =============== END HEADER =============== -->
 
-  <!-- Main Container -->
-  <main>
-    <div class="test-container">
-      <!-- Provider Info -->
-      <div class="provider-info">
-        <p>Safaricom Business</p>
-        <p>Liquid Intelligent Technologies, Nairobi</p>
-      </div>
 
-      <!-- Speed Test Circle -->
-      <div class="circle">
-        <button id="startTest">Go</button>
-      </div>
+  <!-- ================= PARTNERS ================= -->
+  <section class="partners">
 
-      <!-- Results Section -->
-      <div id="result">
-        <div class="stat">
-          <span class="label">Ping</span>
-          <span class="value" id="pingValue">—</span>
-          <span class="unit">ms</span>
-        </div>
-        <div class="stat">
-          <span class="label">Download</span>
-          <span class="value" id="downloadValue">—</span>
-          <span class="unit">Mbps</span>
-        </div>
-        <div class="stat">
-          <span class="label">Upload</span>
-          <span class="value" id="uploadValue">—</span>
-          <span class="unit">Mbps</span>
-        </div>
-      </div>
-
-      <!-- Timestamp -->
-      <div class="timestamp">
-        <p id="timestamp">—</p>
-      </div>
+    <div class="partner">
+      <img src="images/safaricom.png" alt="Safaricom Logo">
+      <p>Safaricom Business</p>
     </div>
+
+    <div class="partner">
+      <img src="images/liquid.png" alt="Liquid Logo">
+      <p>Liquid Intelligent Technologies Nairobi</p>
+    </div>
+
+  </section>
+  <!-- =============== END PARTNERS =============== -->
+
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="container">
+
+    <!-- Speedtest Panel -->
+    <div class="speedtest-panel">
+
+      <!-- GO Button -->
+      <button id="startTest" class="circle-button">
+        GO
+      </button>
+
+    </div>
+
+    <!-- Results -->
+    <div id="result" class="results-panel">
+      <!-- Results will appear here dynamically -->
+    </div>
+
   </main>
+  <!-- =============== END MAIN CONTAINER =============== -->
 
-  <!-- Footer -->
+
+  <!-- ================= FOOTER ================= -->
   <footer>
-    <ul>
-      <li><a href="#">Settings</a></li>
-      <li><a href="#">History</a></li>
-      <li><a href="#">Help</a></li>
-    </ul>
-  </footer>
 
+    <div class="footer-links">
+      <ul>
+        <li>Privacy Policy</li>
+        <li>Terms of Use</li>
+        <li>Advertise</li>
+        <li>Careers</li>
+      </ul>
+    </div>
+
+    <div class="footer-copy">
+      <p>&copy; 2025 Speedtest Clone Project</p>
+    </div>
+
+  </footer>
+  <!-- =============== END FOOTER =============== -->
+
+
+  <!-- Scripts -->
   <script src="javascript/app.js"></script>
+
 </body>
 </html>
