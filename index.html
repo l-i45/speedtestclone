@@ -4,7 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Speedtest Clone</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="favicon.ico">
 </head>
@@ -16,37 +17,37 @@
       </header>
 
       <section class="card-body">
-        <div class="gauge-row">
-          <div class="gauge-wrap" aria-hidden="true">
-            <!-- SVG circular gauge -->
-            <svg class="gauge" viewBox="0 0 220 220" width="220" height="220" aria-hidden="true">
+        <div class="top-row">
+          <div class="gauge-wrap">
+            <svg class="gauge" viewBox="0 0 240 240" width="240" height="240" aria-hidden="true">
               <defs>
-                <linearGradient id="gradDownload" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#00a9ff" />
-                  <stop offset="100%" stop-color="#0077cc" />
+                <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#00d1ff"/>
+                  <stop offset="100%" stop-color="#0077cc"/>
                 </linearGradient>
               </defs>
-              <g transform="translate(110,110)">
-                <circle class="gauge-bg" r="90" cx="0" cy="0" fill="none" stroke-width="18"></circle>
-                <circle class="gauge-fg" r="90" cx="0" cy="0" fill="none" stroke-width="18" stroke="url(#gradDownload)" stroke-linecap="round" transform="rotate(-90)"></circle>
+              <g transform="translate(120,120)">
+                <circle class="g-bg" r="96" fill="none" stroke-width="20"></circle>
+                <circle class="g-fg" r="96" fill="none" stroke-width="20" stroke="url(#g1)" stroke-linecap="round" transform="rotate(-90)"></circle>
               </g>
             </svg>
+
             <div class="gauge-center">
-              <div class="gauge-value"><span id="gaugeNumber">--</span><span class="unit"> Mbps</span></div>
-              <div class="gauge-label">Download</div>
+              <div class="gauge-number"><span id="gaugeNumber">--</span><span class="unit"> Mbps</span></div>
+              <div class="gauge-sub">Download</div>
             </div>
+          </div>
+
+          <div class="controls">
+            <button id="startTest" class="go-btn">GO</button>
+            <div id="progress" class="progress" aria-hidden="true"></div>
           </div>
         </div>
 
-        <div class="controls">
-          <button id="startTest" class="start-btn">Start Test</button>
-        </div>
-
         <div id="result" class="result" aria-live="polite">
-          <!-- stat boxes inserted by JS -->
+          <!-- ping / download / upload boxes injected by JS -->
         </div>
 
-        <div id="progress" class="progress" aria-hidden="true"></div>
       </section>
 
       <footer class="card-footer">
